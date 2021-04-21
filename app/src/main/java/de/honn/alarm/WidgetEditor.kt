@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.*
+import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -76,7 +77,8 @@ class WidgetEditor {
             var oldItem = "Stock"
 
             dialog = AlertDialog.Builder(context).setView(lv).create()
-
+            val animIn = AnimationUtils.loadAnimation(context, R.anim.slide_up_dialog)
+            lv.startAnimation(animIn)
             dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.window!!.attributes.y = metrics.heightPixels - dialog.window!!.attributes.height
