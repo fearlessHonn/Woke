@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        android:id="@+id/oneDayWeather"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        layout="@layout/daily_weather_full"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="wrap_content" />
+
+    <include
+        android:id="@+id/twoDayWeather"
+        app:layout_constraintStart_toEndOf="@+id/oneDayWeather"
+        app:layout_constraintTop_toTopOf="@+id/oneDayWeather"
+        layout="@layout/daily_weather_full"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp" />
+
+    <include
+        android:id="@+id/threeDayWeather"
+        app:layout_constraintStart_toEndOf="@+id/twoDayWeather"
+        app:layout_constraintTop_toTopOf="@+id/twoDayWeather"
+        layout="@layout/daily_weather_full"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp" />
+
+    <include
+        android:id="@+id/fourDayWeather"
+        app:layout_constraintStart_toEndOf="@+id/threeDayWeather"
+        app:layout_constraintTop_toTopOf="@+id/threeDayWeather"
+        layout="@layout/daily_weather_full"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp" />
+
+    <include
+        android:id="@+id/fiveDayWeather"
+        app:layout_constraintStart_toEndOf="@+id/fourDayWeather"
+        app:layout_constraintTop_toTopOf="@+id/fourDayWeather"
+        layout="@layout/daily_weather_full"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp" />
+
+    <include
+        android:id="@+id/sixDayWeather"
+        app:layout_constraintStart_toEndOf="@+id/fiveDayWeather"
+        app:layout_constraintTop_toTopOf="@+id/fiveDayWeather"
+        layout="@layout/daily_weather_full"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp" />
+
+    <include
+        android:id="@+id/sevenDayWeather"
+        app:layout_constraintStart_toEndOf="@+id/sixDayWeather"
+        app:layout_constraintTop_toTopOf="@+id/sixDayWeather"
+        layout="@layout/daily_weather_full"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

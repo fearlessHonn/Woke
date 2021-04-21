@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="175dp"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="175dp"
+        android:layout_height="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/calendarDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_light"
+        android:text="{DATE}"
+        android:textColor="#797B7D"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/weekDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="left"
+        android:text="{weekDay}"
+        android:textColor="#F0F0F0"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/calendarDay"
+        app:layout_constraintTop_toTopOf="@+id/calendarDay" />
+
+    <ImageView
+        android:id="@+id/weatherIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="90dp"
+        android:src="@drawable/sunny_weather"
+        app:layout_constraintStart_toStartOf="@+id/view2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#F0F0F0" />
+
+    <ImageView
+        android:id="@+id/arrowUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/arrow_up"
+        app:layout_constraintStart_toStartOf="@+id/view2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#F0F0F0" />
+
+    <TextView
+        android:id="@+id/upTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="7dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="00°"
+        android:textColor="#F0F0F0"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/arrowUp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/arrowDown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:rotation="180"
+        android:src="@drawable/arrow_up"
+        app:layout_constraintStart_toStartOf="@+id/view2"
+        app:layout_constraintTop_toTopOf="@+id/arrowUp"
+        app:tint="#797B7D" />
+
+    <TextView
+        android:id="@+id/downTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="7dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="00°"
+        android:textColor="#797B7D"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/arrowDown"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

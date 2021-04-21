@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clickable="true">
+
+    <View
+        android:id="@+id/weatherBackground"
+        android:layout_width="match_parent"
+        android:layout_height="187dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/weather_widget_wide"
+        app:layout_constraintDimensionRatio="2:1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/locationIcon"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/location_icon"
+        app:layout_constraintStart_toStartOf="@+id/weatherBackground"
+        app:layout_constraintTop_toTopOf="@+id/weatherBackground"
+        app:tint="#F0F0F0" />
+
+    <TextView
+        android:id="@+id/locationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="{city}"
+        android:textColor="#F0F0F0"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/locationIcon"
+        app:layout_constraintTop_toTopOf="@+id/weatherBackground" />
+
+    <ImageView
+        android:id="@+id/bigWeatherIcon"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginEnd="18dp"
+        android:src="@drawable/partly_cloudy_icon"
+        app:layout_constraintEnd_toEndOf="@+id/weatherBackground"
+        app:layout_constraintTop_toTopOf="@+id/locationText"
+        app:tint="#F0F0F0" />
+
+    <TextView
+        android:id="@+id/weatherDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="{description}"
+        android:textColor="#F0F0F0"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/bigWeatherIcon"
+        app:layout_constraintTop_toBottomOf="@+id/bigWeatherIcon" />
+
+    <TextView
+        android:id="@+id/locationState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_light"
+        android:text="{country/state}"
+        android:textColor="#797B7D"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/locationIcon"
+        app:layout_constraintTop_toBottomOf="@+id/locationText" />
+
+    <TextView
+        android:id="@+id/bigTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="00°C"
+        android:textColor="#F0F0F0"
+        android:textSize="36sp"
+        app:layout_constraintStart_toStartOf="@+id/locationIcon"
+        app:layout_constraintTop_toTopOf="@+id/weatherBackground" />
+
+    <include
+        android:id="@+id/todayWeather"
+        layout="@layout/daily_weather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="18dp"
+        app:layout_constraintEnd_toEndOf="@+id/weatherBackground"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/tomorrowWeather"
+        layout="@layout/daily_weather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/todayWeather"
+        app:layout_constraintTop_toBottomOf="@+id/todayWeather" />
+
+    <include
+        android:id="@+id/dATomorrowWeather"
+        layout="@layout/daily_weather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/tomorrowWeather"
+        app:layout_constraintTop_toBottomOf="@+id/tomorrowWeather" />
+
+    <ImageView
+        android:id="@+id/wind1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:src="@drawable/wind_icon"
+        app:layout_constraintStart_toStartOf="@+id/bigTemperature"
+        app:layout_constraintTop_toBottomOf="@+id/bigTemperature"
+        app:tint="#F0F0F0" />
+
+    <ImageView
+        android:id="@+id/wind2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:src="@drawable/wind_icon"
+        app:layout_constraintStart_toEndOf="@+id/wind1"
+        app:layout_constraintTop_toTopOf="@+id/wind1"
+        app:tint="#F0F0F0" />
+
+    <ImageView
+        android:id="@+id/wind3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:src="@drawable/wind_icon"
+        app:layout_constraintStart_toEndOf="@+id/wind2"
+        app:layout_constraintTop_toTopOf="@+id/wind2"
+        app:tint="#797B7D" />
+
+    <ImageView
+        android:id="@+id/drop1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/drop_icon"
+        app:layout_constraintStart_toStartOf="@+id/bigTemperature"
+        app:layout_constraintTop_toBottomOf="@+id/wind1"
+        app:tint="#F0F0F0" />
+
+    <ImageView
+        android:id="@+id/drop2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:src="@drawable/drop_icon"
+        app:layout_constraintStart_toEndOf="@+id/drop1"
+        app:layout_constraintTop_toTopOf="@+id/drop1"
+        app:tint="#797B7D" />
+
+    <ImageView
+        android:id="@+id/drop3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:src="@drawable/drop_icon"
+        app:layout_constraintStart_toEndOf="@+id/drop2"
+        app:layout_constraintTop_toTopOf="@+id/drop2"
+        app:tint="#797B7D" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="types">
+        <item>Stock</item>
+        <item>Weather</item>
+        <item>Covid-19 (Graph)</item>
+        <item>Covid-19 (Data)</item>
+    </string-array>
+
+    <string-array name="currencies">
+        <item>Euro (€)</item>
+        <item>US-Dollar ($US)</item>
+    </string-array>
+
+    <string-array name="times">
+        <item>1 month</item>
+        <item>3 months</item>
+        <item>6 months</item>
+        <item>1 year</item>
+    </string-array>
+
+    <string-array name="covidData">
+        <item>total cases</item>
+        <item>total deaths</item>
+        <item>active cases</item>
+        <item>total recovered</item>
+        <item>new cases</item>
+        <item>new deaths</item>
+        <item>new recovered</item>
+        <item>incidence</item>
+    </string-array>
+
+    <string-array name="tempUnits">
+        <item>Celcius</item>
+        <item>Fahrenheit</item>
+        <item>Kelvin</item>
+    </string-array>
+
+</resources>

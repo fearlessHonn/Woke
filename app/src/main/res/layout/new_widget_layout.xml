@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/newWidgetLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginBottom="0dp"
+    android:orientation="vertical"
+    app:layout_constraintBottom_toBottomOf="parent">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="460dp"
+        android:background="@drawable/menu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/trashButton"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/trash_icon"
+        app:layout_constraintEnd_toStartOf="@+id/closeButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/closeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/menu_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/editWidget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="Edit Widget"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/WidgetType"
+        app:layout_constraintTop_toTopOf="@+id/view" />
+
+    <TextView
+        android:id="@+id/WidgetType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="WIDGET TYPE"
+        android:textColor="#B1B1B1"
+        android:textSize="12dp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="@+id/widgetTypeSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/editWidget" />
+
+    <Spinner
+        android:id="@+id/widgetTypeSpinner"
+        android:layout_width="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/dropdown"
+        android:dropDownSelector="@drawable/dropdownarrow"
+        android:spinnerMode="dropdown"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/WidgetType" />
+
+    <FrameLayout
+        android:id="@+id/typeArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/dropdownarrow"
+        app:layout_constraintBottom_toBottomOf="@+id/widgetTypeSpinner"
+        app:layout_constraintEnd_toEndOf="@+id/widgetTypeSpinner"
+        app:layout_constraintTop_toTopOf="@+id/widgetTypeSpinner" />
+
+    <TextView
+        android:id="@+id/widgetTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="WIDGET TITLE"
+        android:textColor="#B1B1B1"
+        android:textSize="12sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="@+id/editTextWidgetTitle"
+        app:layout_constraintTop_toBottomOf="@+id/widgetTypeSpinner" />
+
+    <EditText
+        android:id="@+id/editTextWidgetTitle"
+        android:layout_width="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/dropdown"
+        android:text=""
+        android:textColor="#FFFFFF"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/widgetTitle" />
+
+    <TextView
+        android:id="@+id/stockSymbol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="STOCK SYMBOL"
+        android:textColor="#B1B1B1"
+        android:textSize="12sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="@+id/editTextStockSymbol"
+        app:layout_constraintTop_toBottomOf="@+id/editTextWidgetTitle" />
+
+    <EditText
+        android:id="@+id/editTextStockSymbol"
+        android:layout_width="150dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/dropdown"
+        android:text=""
+        android:paddingStart="10dp"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toStartOf="@+id/editTextWidgetTitle"
+        app:layout_constraintTop_toBottomOf="@+id/stockSymbol" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:switchMinWidth="40dp"
+        android:switchPadding="12dp"
+        android:text="CUSTOM TITLE"
+        android:textColor="#B1B1B1"
+        android:textSize="12sp"
+        android:thumbTint="#333333"
+        android:trackTint="#333333"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextStockSymbol"
+        app:layout_constraintEnd_toEndOf="@+id/dataSpinner1"
+        app:layout_constraintStart_toEndOf="@+id/editTextStockSymbol"
+        app:layout_constraintTop_toTopOf="@+id/editTextStockSymbol" />
+
+    <TextView
+        android:id="@+id/dataField1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="SHOW DATA FROM"
+        android:textColor="#B1B1B1"
+        android:textSize="12dp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="@+id/editTextStockSymbol"
+        app:layout_constraintTop_toBottomOf="@+id/editTextStockSymbol" />
+
+    <Spinner
+        android:id="@+id/dataSpinner1"
+        android:layout_width="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/dropdown"
+        android:dropDownSelector="@drawable/dropdownarrow"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dataField1" />
+
+    <FrameLayout
+        android:id="@+id/dataArrow1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/dropdownarrow"
+        app:layout_constraintBottom_toBottomOf="@+id/dataSpinner1"
+        app:layout_constraintEnd_toEndOf="@+id/dataSpinner1"
+        app:layout_constraintTop_toTopOf="@+id/dataSpinner1" />
+
+    <TextView
+        android:id="@+id/dataField2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="CURRENCY"
+        android:textColor="#B1B1B1"
+        android:textSize="12sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="@+id/dataSpinner2"
+        app:layout_constraintTop_toBottomOf="@+id/dataSpinner1" />
+
+    <Spinner
+        android:id="@+id/dataSpinner2"
+        android:layout_width="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/dropdown"
+        android:dropDownSelector="@drawable/dropdownarrow"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dataField2" />
+
+    <FrameLayout
+        android:id="@+id/dataArrow2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/dropdownarrow"
+        app:layout_constraintBottom_toBottomOf="@+id/dataSpinner2"
+        app:layout_constraintEnd_toEndOf="@+id/dataSpinner2"
+        app:layout_constraintTop_toTopOf="@+id/dataSpinner2" />
+
+    <TextView
+        android:id="@+id/dataField3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="DATA FIELD 3"
+        android:textColor="#B1B1B1"
+        android:textSize="12sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="@+id/dataSpinner2"
+        app:layout_constraintTop_toBottomOf="@+id/dataSpinner2" />
+
+    <Spinner
+        android:id="@+id/dataSpinner3"
+        android:layout_width="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/dropdown"
+        android:dropDownSelector="@drawable/dropdownarrow"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dataField3" />
+
+    <FrameLayout
+        android:id="@+id/dataArrow3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/dropdownarrow"
+        app:layout_constraintBottom_toBottomOf="@+id/dataSpinner3"
+        app:layout_constraintEnd_toEndOf="@+id/dataSpinner3"
+        app:layout_constraintTop_toTopOf="@+id/dataSpinner3" />
+
+    <TextView
+        android:id="@+id/dataField4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="DATA FIELD 4"
+        android:textColor="#B1B1B1"
+        android:textSize="12sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="@+id/dataSpinner3"
+        app:layout_constraintTop_toBottomOf="@+id/dataSpinner3" />
+
+    <Spinner
+        android:id="@+id/dataSpinner4"
+        android:layout_width="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/dropdown"
+        android:dropDownSelector="@drawable/dropdownarrow"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dataField4" />
+
+    <FrameLayout
+        android:id="@+id/dataArrow4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/dropdownarrow"
+        app:layout_constraintBottom_toBottomOf="@+id/dataSpinner4"
+        app:layout_constraintEnd_toEndOf="@+id/dataSpinner4"
+        app:layout_constraintTop_toTopOf="@+id/dataSpinner4" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="#333333"
+        android:text="SAVE"
+        android:textColor="#B1B1B1"
+        app:layout_constraintStart_toStartOf="@+id/dataSpinner2"
+        app:layout_constraintTop_toBottomOf="@+id/dataSpinner2" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/dataGroup1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="dataSpinner1, dataArrow1, dataField1" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/dataGroup2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="dataSpinner2, dataArrow2, dataField2" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/dataGroup3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:constraint_referenced_ids="dataSpinner3, dataArrow3, dataField3" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/dataGroup4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:constraint_referenced_ids="dataSpinner4, dataArrow4, dataField4" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
