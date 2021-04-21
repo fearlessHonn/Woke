@@ -4,11 +4,7 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.util.Log
 import android.view.View
-import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.marginStart
 import kotlinx.android.synthetic.main.daily_weather_full.view.*
 import kotlinx.android.synthetic.main.weather_full_screen.view.*
 import kotlinx.android.synthetic.main.weekly_weather.view.*
@@ -37,20 +33,17 @@ class WeatherFullScreen {
                 w.delete()
                 dialog.dismiss()
             }
-            lv.editButton.setOnClickListener { WidgetEditor.editWidget(w.parentLayout, w.context, w.inflater) }
-
+            lv.editButton.setOnClickListener {
+                WidgetEditor.editWidget(w.parentLayout, w.context, w.inflater, w.location, "Weather", w.location)
+                dialog.dismiss()
+            }
         }
 
         @SuppressLint("SetTextI18n")
         private fun readData(w: WeatherWidget, v: View) {
             val days = listOf(
-                v.weeklyWeather.oneDayWeather,
-                v.weeklyWeather.twoDayWeather,
-                v.weeklyWeather.threeDayWeather,
-                v.weeklyWeather.fourDayWeather,
-                v.weeklyWeather.fiveDayWeather,
-                v.weeklyWeather.sixDayWeather,
-                v.weeklyWeather.sevenDayWeather)
+                v.weeklyWeather.oneDayWeather, v.weeklyWeather.twoDayWeather, v.weeklyWeather.threeDayWeather, v.weeklyWeather.fourDayWeather, v.weeklyWeather.fiveDayWeather, v.weeklyWeather.sixDayWeather, v.weeklyWeather.sevenDayWeather
+            )
 
             val countries = JSONObject(w.context.assets.open("countries.json").bufferedReader().use { it.readText() })
             val calendar = Calendar.getInstance(TimeZone.getTimeZone(w.gsonForecast.timezone!!))

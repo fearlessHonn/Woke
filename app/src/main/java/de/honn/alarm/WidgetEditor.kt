@@ -100,10 +100,10 @@ class WidgetEditor {
 
             lv.editTextWidgetTitle.setText(oldTitle)
             lv.editTextStockSymbol.setText(oldLocation)
-            lv.widgetTypeSpinner.setSelection(typeAdapter.getPosition(oldType))
 
             dialog.show()
             dialog.window!!.setLayout(metrics.widthPixels, dialog.window!!.attributes.height)
+            lv.widgetTypeSpinner.setSelection(typeAdapter.getPosition(oldType))
 
             lv.widgetTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 @SuppressLint("SetTextI18n")

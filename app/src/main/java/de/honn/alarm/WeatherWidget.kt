@@ -10,7 +10,6 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
 import kotlinx.android.synthetic.main.daily_weather.view.*
 import kotlinx.android.synthetic.main.new_widget_layout.view.*
 import kotlinx.android.synthetic.main.weather_widget_wide.view.*
@@ -102,7 +101,7 @@ class WeatherWidget(
     private lateinit var weatherData: String
     private lateinit var weatherDataForecast: String
 
-    val metrics = context.resources.displayMetrics
+    private val metrics = context.resources.displayMetrics
 
     private val key = "7ee50f4bcc5f9c4d55e9064cd9a97e9e"
     lateinit var coroutine: Job
@@ -214,7 +213,7 @@ class WeatherWidget(
 
     override suspend fun refresh() {
         coroutine = GlobalScope.launch(Dispatchers.Default) {
-            val url = "https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=$key" // TODO: Volley implementation?
+            val url = "https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=$key"
             val queue = Volley.newRequestQueue(context)
 
             val req = StringRequest(Request.Method.GET, url, { response ->
