@@ -94,8 +94,8 @@ class WeatherWidget(
     val inflater: LayoutInflater,
     val context: Context,
     val parentLayout: ConstraintLayout,
-    posX: Float,
-    posY: Float
+    val posX: Float,
+    val posY: Float
 ) : Widget(posX, posY, inflater, parentLayout) {
 
     private lateinit var weatherData: String
@@ -196,7 +196,8 @@ class WeatherWidget(
         todayWeekDay.text = "Today"
         tomorrowWeekDay.text = "Tomorrow"
         locationText.text = location
-        lv.y = 300.toPx()
+        lv.y = posY
+        lv.x = posX
 
         lv.setOnLongClickListener {
             WidgetEditor.editWidget(
