@@ -1,6 +1,7 @@
 package de.honn.alarm
 
 import android.util.DisplayMetrics
+import android.view.View
 import java.util.*
 
 class GridHandler {
@@ -11,6 +12,9 @@ class GridHandler {
 
         const val DEL = 3
         const val ADD = 4
+
+        val BOTTOM_MARGIN = 20
+        var currentPage = 0
 
         var positions: MutableMap<Int, Widget> = mutableMapOf()
 
@@ -28,7 +32,7 @@ class GridHandler {
             val squareWidth = metrics.widthPixels / 2
 
             val x = (num % 2) * squareWidth
-            val y = metrics.heightPixels - squareWidth * ((2 - (num - 4 * page) / 2))
+            val y = metrics.heightPixels - squareWidth * ((2 - (num - 4 * page) / 2)) - this.BOTTOM_MARGIN
 
             return Pair(x.toFloat(), y.toFloat())
         }
@@ -78,13 +82,20 @@ class GridHandler {
             }
             else if (action == this.DEL) {
                 when (format) {
-                    this.SQUARE -> {this.positions[position]!!.delete()}
-                    this.HORIZONTAL -> {this.positions[position]!!.delete(); this.positions[position + 1]!!.delete()} // TODO: possible bug when left part of wide widget is given. But why should?
-                    this.VERTICAL -> {this.positions[position]!!.delete(); this.positions[position + 2]!!.delete()}
+                    this.SQUARE -> {this.positions.remove(position)}
+                    this.HORIZONTAL -> {this.positions.remove(position); this.positions.remove(position + 1)} // TODO: possible bug when left part of wide widget is given. But why should?
+                    this.VERTICAL -> {this.positions.remove(position); this.positions.remove(position + 2)}
                     else -> {error("Invalid Format for widget: $format")}
                 }
             }
             else {error("Invalid Action: $action")}
+        }
+
+        fun changePage(page: Int) {
+            this.currentPage = page
+            for (position in this.positions.keys) {
+                this.positions[position]!!.lv.visibility = if (position / 4 == page) View.VISIBLE else View.INVISIBLE
+            }
         }
     }
 }

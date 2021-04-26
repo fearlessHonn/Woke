@@ -18,9 +18,19 @@ class MainActivity : AppCompatActivity() {
         val parent = findViewById<ConstraintLayout>(R.id.myLayout)
         val handler = TimeSpinnerHandler(parent, this, this@MainActivity)
         val newWidgetButton = findViewById<ImageButton>(R.id.NewWidgetButton)
+        val nextPageButton = findViewById<ImageButton>(R.id.NextPageButton)
+        val previousPageButton = findViewById<ImageButton>(R.id.PreviousPageButton)
 
         newWidgetButton.setOnClickListener {
             WidgetEditor.editWidget(parent, this, layoutInflater)
+        }
+
+        nextPageButton.setOnClickListener {
+            GridHandler.changePage(GridHandler.currentPage + 1)
+        }
+
+        previousPageButton.setOnClickListener {
+            GridHandler.changePage(GridHandler.currentPage - 1)
         }
     }
 

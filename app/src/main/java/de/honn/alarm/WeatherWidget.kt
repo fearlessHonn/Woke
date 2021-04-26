@@ -95,8 +95,9 @@ class WeatherWidget(
     val context: Context,
     val parentLayout: ConstraintLayout,
     val posX: Float,
-    val posY: Float
-) : Widget(posX, posY, inflater, parentLayout) {
+    val posY: Float,
+    val position: Int
+) : Widget(posX, posY, inflater, parentLayout, GridHandler.HORIZONTAL, position) {
 
     private lateinit var weatherData: String
     private lateinit var weatherDataForecast: String

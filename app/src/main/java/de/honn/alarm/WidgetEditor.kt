@@ -180,7 +180,7 @@ class WidgetEditor {
             }
 
             lv.saveButton.setOnClickListener {
-                var position = GridHandler.getNextClear(GridHandler.HORIZONTAL)
+                val position = GridHandler.getNextClear(GridHandler.HORIZONTAL)
                 val x = GridHandler.numToPix(position, metrics).first
                 val y = GridHandler.numToPix(position, metrics).second
 
@@ -195,8 +195,10 @@ class WidgetEditor {
                     val type = lv.widgetTypeSpinner.selectedItem
                     if (type == "Weather") {
                         if (!widgets.keys.contains(title + type)) {
-                            widgets[title + type] = WeatherWidget(location, title, lv.dataSpinner1.selectedItem.toString(), layoutInflater, context, parent, x, y)
+                            widgets[title + type] = WeatherWidget(location, title, lv.dataSpinner1.selectedItem.toString(), layoutInflater, context, parent, x, y, position)
                             GridHandler.updateMap(GridHandler.HORIZONTAL, position, GridHandler.ADD, widgets[title + type]!!)
+                            if (position / 4 != GridHandler.currentPage)
+                                GridHandler.positions[position]!!.lv.visibility = View.INVISIBLE
                             GlobalScope.async(Dispatchers.Main) {
                                 widgets[title + type]!!.refresh()
                                 Log.d("createWidget", "keys: ${widgets.keys} @position: $position with x: $x and y: $y --> used positions: ${GridHandler.positions.keys}")
@@ -215,6 +217,7 @@ class WidgetEditor {
                     Log.d("trashButton.Listener", "deleted ${oldTitle + oldType}")
                     widgets[oldTitle + oldType]!!.delete()
                     widgets.remove(oldTitle + oldType)
+                    GridHandler.updateMap(GridHandler.HORIZONTAL, 3, GridHandler.DEL)
                     dialog.dismiss()
                 }
             }
