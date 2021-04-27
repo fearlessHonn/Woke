@@ -172,8 +172,8 @@ class WidgetEditor {
                 }
             }
 
-            lv.saveButton.setOnClickListener {
-                val position = GridHandler.getNextClear(GridHandler.HORIZONTAL)
+            lv.saveButton.setOnClickListener { // TODO: Prevent saving when widget creation is in process
+                val position = GridHandler.getNextClear(GridHandler.HORIZONTAL) // TODO: Enter format in Widget Creation process
 
                 if (oldPosition >= 0) {
                     val oldWidget = GridHandler.positions[oldPosition]!!
@@ -182,19 +182,24 @@ class WidgetEditor {
                 }
 
                 val title = lv.editTextWidgetTitle.text.toString().trim().replace("\n", "")
-                val location = lv.editTextStockSymbol.text.toString().trim().replace("\n", "")
+                val apiValue = lv.editTextStockSymbol.text.toString().trim().replace("\n", "")
                 if (title != "") {
                     val type = lv.widgetTypeSpinner.selectedItem
                     if (type == "Weather") {
-                        val wid = WeatherWidget(location, title, lv.dataSpinner1.selectedItem.toString(), layoutInflater, context, parent, position)
+                        val wid = WeatherWidget(apiValue, title, lv.dataSpinner1.selectedItem.toString(), layoutInflater, context, parent, position)
                         GridHandler.updateMap(GridHandler.HORIZONTAL, position, GridHandler.ADD, wid)
+                    }
 
-                        if (position / 4 != GridHandler.currentPage) GridHandler.positions[position]!!.lv.visibility = View.INVISIBLE
+                    else if (type == "Stock") {
+                        val wid = StockWidgetSquare(apiValue, lv.dataSpinner2.selectedItem.toString(), layoutInflater, context, parent, title, position)
+                        GridHandler.updateMap(GridHandler.SQUARE, position, GridHandler.ADD, wid)
+                    }
 
-                        GlobalScope.async(Dispatchers.Main) {
-                            GridHandler.positions[position]!!.refresh()
-                            Log.d("createWidget", "@position: $position --> used positions: ${GridHandler.positions.keys}")
-                        }
+                    if (position / 4 != GridHandler.currentPage) GridHandler.positions[position]!!.lv.visibility = View.INVISIBLE
+                    GlobalScope.async(Dispatchers.Main) {
+                        Log.d("WidgetEditor", "Sending refresh request to $position")
+                        GridHandler.positions[position]!!.refresh()
+                        Log.d("createWidget", "@position: $position --> used positions: ${GridHandler.positions.keys}")
                     }
                 }
             }

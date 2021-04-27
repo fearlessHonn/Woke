@@ -10,10 +10,11 @@ open class Widget(
     val format: Int,
     val apiValue: String,
     val type: String,
+    private val baseLayout: Int,
     open val position: Int = -1,
     open val title: String = ""
 ) {
-    val lv: View = inflater.inflate(R.layout.weather_widget_wide, null)
+    val lv: View = inflater.inflate(baseLayout, null)
 
     fun delete() {
         GridHandler.updateMap(this.format, this.position, GridHandler.DEL)

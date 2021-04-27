@@ -75,7 +75,7 @@ class WeatherWidget(
     val context: Context,
     val parentLayout: ConstraintLayout,
     override val position: Int
-) : Widget(inflater, parentLayout, GridHandler.HORIZONTAL, title, "Weather") {
+) : Widget(inflater, parentLayout, GridHandler.HORIZONTAL, title, "Weather", R.layout.weather_widget_wide) {
 
     private lateinit var weatherData: String
     private lateinit var weatherDataForecast: String
@@ -85,7 +85,7 @@ class WeatherWidget(
     private val key = "7ee50f4bcc5f9c4d55e9064cd9a97e9e"
     lateinit var coroutine: Job
     lateinit var country: String
-    var created = false
+    private var created = false
 
     private val posX = GridHandler.numToPix(position, metrics).first
     private val posY = GridHandler.numToPix(position, metrics).second
@@ -131,17 +131,16 @@ class WeatherWidget(
     }
 
     override fun createWidget() {
-        created = true
+        println("reached create")
+        this.created = true
         lv.todayWeather.weekDay.text = "Today"
         lv.tomorrowWeather.weekDay.text = "Tomorrow"
-        lv.location.text = location
+        lv.locationText.text = location
         lv.y = posY
         lv.x = posX
 
         lv.setOnLongClickListener {
-            WidgetEditor.editWidget(
-                parentLayout, context, inflater, position
-            )
+            WidgetEditor.editWidget(parentLayout, context, inflater, position)
             false
         }
 
@@ -150,6 +149,7 @@ class WeatherWidget(
         }
 
         parentLayout.addView(lv)
+        println("finished creation @weather widget")
     }
 
     override suspend fun refresh() {
@@ -186,7 +186,8 @@ class WeatherWidget(
         while (!this::weatherDataForecast.isInitialized) delay(10)
         Log.d("ForecastJSONAPI", weatherDataForecast)
         WidgetEditor.dialog.dismiss()
-        if (!created) this.createWidget()
+        if (!this.created)
+            this.createWidget()
         readData()
     }
 
@@ -204,16 +205,16 @@ class WeatherWidget(
         lv.bigWeatherIcon.setImageResource(iconMap[gsonForecast.current!!.weather!![0].main]!!.first)
 
         lv.todayWeather.weatherIndicator.setImageResource(iconMap[gsonForecast.daily!![0].weather!![0].main]!!.first)
-        lv.todayWeather.highTemperature.text = gsonForecast.daily!![0].temp!!.max!!.convert(unit).toString() + "°"
-        lv.todayWeather.lowTemperature.text = gsonForecast.daily!![0].temp!!.min!!.convert(unit).toString() + "°"
+        lv.todayWeather.upTemperature.text = gsonForecast.daily!![0].temp!!.max!!.convert(unit).toString() + "°"
+        lv.todayWeather.downTemperature.text = gsonForecast.daily!![0].temp!!.min!!.convert(unit).toString() + "°"
 
         lv.tomorrowWeather.weatherIndicator.setImageResource(iconMap[gsonForecast.daily!![1].weather!![0].main]!!.first)
-        lv.tomorrowWeather.highTemperature.text = gsonForecast.daily!![1].temp!!.max!!.convert(unit).toString() + "°"
-        lv.tomorrowWeather.lowTemperature.text = gsonForecast.daily!![1].temp!!.min!!.convert(unit).toString() + "°"
+        lv.tomorrowWeather.upTemperature.text = gsonForecast.daily!![1].temp!!.max!!.convert(unit).toString() + "°"
+        lv.tomorrowWeather.downTemperature.text = gsonForecast.daily!![1].temp!!.min!!.convert(unit).toString() + "°"
 
         lv.dATomorrowWeather.weatherIndicator.setImageResource(iconMap[gsonForecast.daily!![2].weather!![0].main]!!.first)
-        lv.dATomorrowWeather.highTemperature.text = gsonForecast.daily!![2].temp!!.max!!.convert(unit).toString() + "°"
-        lv.dATomorrowWeather.lowTemperature.text = gsonForecast.daily!![2].temp!!.min!!.convert(unit).toString() + "°"
+        lv.dATomorrowWeather.upTemperature.text = gsonForecast.daily!![2].temp!!.max!!.convert(unit).toString() + "°"
+        lv.dATomorrowWeather.downTemperature.text = gsonForecast.daily!![2].temp!!.min!!.convert(unit).toString() + "°"
 
         lv.wind1.setColorFilter(Color.parseColor("#797B7D"))
         lv.wind2.setColorFilter(Color.parseColor("#797B7D"))

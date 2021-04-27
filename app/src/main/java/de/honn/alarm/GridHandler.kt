@@ -1,8 +1,8 @@
 package de.honn.alarm
 
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.View
-import java.util.*
 
 class GridHandler {
     companion object {
@@ -38,9 +38,11 @@ class GridHandler {
         }
 
         private fun isClear(vararg checks: Int): Boolean {
-            var fit = false
-            for (p in checks)
-                fit = p !in positions.keys
+            var fit = true
+            for (p in checks) if (p in this.positions.keys) {
+                fit = false
+                break
+            }
 
             return fit
         }
@@ -53,11 +55,12 @@ class GridHandler {
                 this.HORIZONTAL -> {
                     return if (pos % 2 == 0) this.isClear(pos, pos + 1)
                     else this.isClear(pos - 1, pos)
-
                 }
+
                 this.VERTICAL -> {
                     return this.isClear(pos, pos + 2)
                 }
+
                 else            -> {
                     error("$format is not a valid format")
                 }
@@ -72,23 +75,41 @@ class GridHandler {
         }
 
         fun updateMap(format: Int, position: Int, action: Int, item: Widget? = null) {
+            Log.d("updateMap", "Got request with item $item @position $position ADD? ${action == 4}")
             if (action == this.ADD && item != null) {
                 when (format) {
-                    this.SQUARE -> {this.positions[position] = item}
-                    this.HORIZONTAL -> {this.positions[position] = item; this.positions[position + 1] = item} // TODO: possible bug when left part of wide widget is given. But why should?
-                    this.VERTICAL -> {this.positions[position] = item; this.positions[position + 2] = item}
-                    else -> {error("Invalid Format for widget: $format")}
+                    this.SQUARE -> {
+                        this.positions[position] = item
+                    }
+                    this.HORIZONTAL -> {
+                        this.positions[position] = item; this.positions[position + 1] = item
+                    } // TODO: possible bug when left part of wide widget is given. But why should?
+                    this.VERTICAL -> {
+                        this.positions[position] = item; this.positions[position + 2] = item
+                    }
+                    else            -> {
+                        error("Invalid Format for widget: $format")
+                    }
                 }
-            }
-            else if (action == this.DEL) {
+            } else if (action == this.DEL) {
                 when (format) {
-                    this.SQUARE -> {this.positions.remove(position)}
-                    this.HORIZONTAL -> {this.positions.remove(position); this.positions.remove(position + 1)} // TODO: possible bug when left part of wide widget is given. But why should?
-                    this.VERTICAL -> {this.positions.remove(position); this.positions.remove(position + 2)}
-                    else -> {error("Invalid Format for widget: $format")}
+                    this.SQUARE -> {
+                        this.positions.remove(position)
+                    }
+                    this.HORIZONTAL -> {
+                        this.positions.remove(position); this.positions.remove(position + 1)
+                    }
+                    this.VERTICAL -> {
+                        this.positions.remove(position); this.positions.remove(position + 2)
+                    }
+                    else            -> {
+                        error("Invalid Format for widget: $format")
+                    }
                 }
+            } else {
+                error("Invalid Action: $action")
             }
-            else {error("Invalid Action: $action")}
+            Log.d("updateMap", "Position keys are now: ${this.positions.keys}")
         }
 
         fun changePage(page: Int) {

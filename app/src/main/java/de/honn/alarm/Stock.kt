@@ -11,7 +11,7 @@ import kotlinx.coroutines.async
 import kotlin.math.round
 import kotlin.math.roundToInt
 
-class Stock(private var symbol: String) {   // TODO: Check if symbol is correct/available
+class  Stock(private var symbol: String) {   // TODO: Check if symbol is correct/available
 
     private var apiClient: DefaultApi = DefaultApi()
     private lateinit var profile: CompanyProfile2
