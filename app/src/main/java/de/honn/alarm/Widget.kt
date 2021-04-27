@@ -5,10 +5,13 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 
 open class Widget(
-    posX: Float, posY: Float, inflater: LayoutInflater,
+    inflater: LayoutInflater,
     private val parentLayout: ConstraintLayout,
-    private val format: Int,
-    private val position: Int
+    val format: Int,
+    val apiValue: String,
+    val type: String,
+    open val position: Int = -1,
+    open val title: String = ""
 ) {
     val lv: View = inflater.inflate(R.layout.weather_widget_wide, null)
 
@@ -16,7 +19,6 @@ open class Widget(
         GridHandler.updateMap(this.format, this.position, GridHandler.DEL)
         parentLayout.removeView(lv)
     }
-
     open suspend fun refresh() {}
     open fun createWidget() {}
 }

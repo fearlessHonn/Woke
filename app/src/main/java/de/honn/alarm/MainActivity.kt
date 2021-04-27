@@ -36,9 +36,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun refresh() {
         GlobalScope.async {
-            for (key in WidgetEditor.widgets.keys) {
-                Log.d("MainActivity/refresh", "Refreshing $key")
-                WidgetEditor.widgets[key]!!.refresh()
+            for (pos in GridHandler.positions.keys) {
+                Log.d("MainActivity/refresh", "Refreshing ${GridHandler.positions[pos]!!.title} @position: $pos")
+                GridHandler.positions[pos]!!.refresh()
             }
         }
     }

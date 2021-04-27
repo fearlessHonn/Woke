@@ -23,7 +23,6 @@ class WidgetEditor {
     companion object {
         lateinit var dialog: AlertDialog
         lateinit var lv: View
-        var widgets: HashMap<String, Widget> = HashMap()
         private val pass: Unit = Unit
 
         private var dataSpinner: ArrayList<Spinner> = arrayListOf()
@@ -64,21 +63,15 @@ class WidgetEditor {
         }
 
         fun editWidget(
-            parent: ConstraintLayout,
-            context: Context,
-            layoutInflater: LayoutInflater,
-            oldTitle: String = "",
-            oldType: String = "Stock",
-            oldLocation: String = ""
+            parent: ConstraintLayout, context: Context, layoutInflater: LayoutInflater, oldPosition: Int = -1
         ) {
             val layout = R.layout.new_widget_layout
             val metrics = context.resources.displayMetrics
             lv = layoutInflater.inflate(layout, null)
-            var oldItem = "Stock"
 
             dialog = AlertDialog.Builder(context).setView(lv).create()
-            val animIn = AnimationUtils.loadAnimation(context, R.anim.slide_up_dialog)
-            lv.startAnimation(animIn)
+            lv.startAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_up_dialog))
+
             dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.window!!.attributes.y = metrics.heightPixels - dialog.window!!.attributes.height
@@ -98,66 +91,69 @@ class WidgetEditor {
             lv.dataSpinner1.adapter = timeAdapter
             lv.dataSpinner2.adapter = currencyAdapter
 
-            lv.editTextStockSymbol.isEnabled = false
-
-            lv.editTextWidgetTitle.setText(oldTitle)
-            lv.editTextStockSymbol.setText(oldLocation)
-
             dialog.show()
             dialog.window!!.setLayout(metrics.widthPixels, dialog.window!!.attributes.height)
-            lv.widgetTypeSpinner.setSelection(typeAdapter.getPosition(oldType))
+
+            if (oldPosition >= 0) {
+                val oldWidget = GridHandler.positions[oldPosition]!!
+                lv.editTextWidgetTitle.setText(oldWidget.title)
+                lv.editTextStockSymbol.setText(oldWidget.apiValue)
+                lv.widgetTypeSpinner.setSelection(typeAdapter.getPosition(oldWidget.type))
+
+                if (oldWidget.title == oldWidget.apiValue) lv.editTextStockSymbol.isEnabled = false
+            }
+
 
             lv.widgetTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 @SuppressLint("SetTextI18n")
                 override fun onItemSelected(
-                    parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    val spinnerItem = lv.widgetTypeSpinner.selectedItem
-                    if (spinnerItem != oldItem) {
-                        oldItem = spinnerItem.toString()
-                        when (spinnerItem) {
-                            "Stock" -> {
-                                lv.stockSymbol.text = "STOCK SYMBOL"
-                                lv.dataField1.text = "SHOW DATA FROM"
-                                lv.dataField2.text = "CURRENCY"
-                                lv.dataSpinner1.adapter = timeAdapter
-                                lv.dataSpinner2.adapter = currencyAdapter
-                                setVisibleSpinners(2, metrics)
+                    parent: AdapterView<*>?, view: View?, position: Int, id: Long
+                ) {
+                    when (lv.widgetTypeSpinner.selectedItem) {
+                        "Stock" -> {
+                            lv.stockSymbol.text = "STOCK SYMBOL"
+                            lv.dataField1.text = "SHOW DATA FROM"
+                            lv.dataField2.text = "CURRENCY"
+                            lv.dataSpinner1.adapter = timeAdapter
+                            lv.dataSpinner2.adapter = currencyAdapter
+                            setVisibleSpinners(2, metrics)
 
-                            }
-                            "Covid-19 (Data)" -> {
-                                lv.stockSymbol.text = "US-STATE"
-                                lv.dataField1.text = "DATA FIELD 1"
-                                lv.dataField2.text = "DATA FIELD 2"
-
-                                lv.dataSpinner1.adapter = covidAdapter
-                                lv.dataSpinner2.adapter = covidAdapter
-                                lv.dataSpinner3.adapter = covidAdapter
-                                lv.dataSpinner4.adapter = covidAdapter
-
-                                setVisibleSpinners(4, metrics)
-                            }
-                            "Covid-19 (Graph)" -> {
-                                lv.stockSymbol.text = "US-STATE"
-                                lv.dataField1.text = "SHOW DATA FROM"
-                                lv.dataField2.text = "DATA FIELD"
-
-                                lv.dataSpinner1.adapter = timeAdapter
-                                lv.dataSpinner2.adapter = covidAdapter
-                                setVisibleSpinners(2, metrics)
-                            }
-                            "Weather" -> {
-                                lv.stockSymbol.text = "LOCATION"
-                                lv.dataField1.text = "TEMPERATURE UNIT"
-                                lv.dataSpinner1.adapter = unitAdapter
-
-                                setVisibleSpinners(1, metrics)
-                            }
-                            else -> {
-                                Log.e("Invalid widget type", spinnerItem.toString())
-                            }
                         }
+                        "Covid-19 (Data)" -> {
+                            lv.stockSymbol.text = "US-STATE"
+                            lv.dataField1.text = "DATA FIELD 1"
+                            lv.dataField2.text = "DATA FIELD 2"
+
+                            lv.dataSpinner1.adapter = covidAdapter
+                            lv.dataSpinner2.adapter = covidAdapter
+                            lv.dataSpinner3.adapter = covidAdapter
+                            lv.dataSpinner4.adapter = covidAdapter
+
+                            setVisibleSpinners(4, metrics)
+                        }
+                        "Covid-19 (Graph)" -> {
+                            lv.stockSymbol.text = "US-STATE"
+                            lv.dataField1.text = "SHOW DATA FROM"
+                            lv.dataField2.text = "DATA FIELD"
+
+                            lv.dataSpinner1.adapter = timeAdapter
+                            lv.dataSpinner2.adapter = covidAdapter
+                            setVisibleSpinners(2, metrics)
+                        }
+                        "Weather" -> {
+                            lv.stockSymbol.text = "LOCATION"
+                            lv.dataField1.text = "TEMPERATURE UNIT"
+                            lv.dataSpinner1.adapter = unitAdapter
+
+                            setVisibleSpinners(1, metrics)
+                        }
+                        else               -> {
+                            Log.e("Invalid widget type", lv.widgetTypeSpinner.selectedItem.toString())
+                        }
+
                     }
                 }
+
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     pass
                 }
@@ -171,22 +167,18 @@ class WidgetEditor {
             }
 
             lv.editTextWidgetTitle.doOnTextChanged { text, _, _, _ ->
-                val type = lv.widgetTypeSpinner.selectedItem
                 if (!lv.switch1.isChecked) {
                     lv.editTextStockSymbol.setText(text)
                 }
-                if (widgets.keys.contains(text.toString() + type) && (text.toString() + type) != (oldTitle + oldType)) lv.editTextWidgetTitle.setTextColor(Color.parseColor("#FF0000"))
-                else lv.editTextWidgetTitle.setTextColor(Color.parseColor("#FFFFFF"))
             }
 
             lv.saveButton.setOnClickListener {
                 val position = GridHandler.getNextClear(GridHandler.HORIZONTAL)
-                val x = GridHandler.numToPix(position, metrics).first
-                val y = GridHandler.numToPix(position, metrics).second
 
-                if (oldTitle != "") {
-                    widgets[oldTitle + oldType]!!.delete()
-                    widgets.remove(oldTitle + oldType)
+                if (oldPosition >= 0) {
+                    val oldWidget = GridHandler.positions[oldPosition]!!
+                    oldWidget.delete()
+                    GridHandler.updateMap(oldWidget.format, oldWidget.position, GridHandler.DEL)
                 }
 
                 val title = lv.editTextWidgetTitle.text.toString().trim().replace("\n", "")
@@ -194,15 +186,14 @@ class WidgetEditor {
                 if (title != "") {
                     val type = lv.widgetTypeSpinner.selectedItem
                     if (type == "Weather") {
-                        if (!widgets.keys.contains(title + type)) {
-                            widgets[title + type] = WeatherWidget(location, title, lv.dataSpinner1.selectedItem.toString(), layoutInflater, context, parent, x, y, position)
-                            GridHandler.updateMap(GridHandler.HORIZONTAL, position, GridHandler.ADD, widgets[title + type]!!)
-                            if (position / 4 != GridHandler.currentPage)
-                                GridHandler.positions[position]!!.lv.visibility = View.INVISIBLE
-                            GlobalScope.async(Dispatchers.Main) {
-                                widgets[title + type]!!.refresh()
-                                Log.d("createWidget", "keys: ${widgets.keys} @position: $position with x: $x and y: $y --> used positions: ${GridHandler.positions.keys}")
-                            }
+                        val wid = WeatherWidget(location, title, lv.dataSpinner1.selectedItem.toString(), layoutInflater, context, parent, position)
+                        GridHandler.updateMap(GridHandler.HORIZONTAL, position, GridHandler.ADD, wid)
+
+                        if (position / 4 != GridHandler.currentPage) GridHandler.positions[position]!!.lv.visibility = View.INVISIBLE
+
+                        GlobalScope.async(Dispatchers.Main) {
+                            GridHandler.positions[position]!!.refresh()
+                            Log.d("createWidget", "@position: $position --> used positions: ${GridHandler.positions.keys}")
                         }
                     }
                 }
@@ -213,10 +204,9 @@ class WidgetEditor {
             }
 
             lv.trashButton.setOnClickListener {
-                if (oldTitle != "") {
-                    Log.d("trashButton.Listener", "deleted ${oldTitle + oldType}")
-                    widgets[oldTitle + oldType]!!.delete()
-                    widgets.remove(oldTitle + oldType)
+                if (oldPosition >= 0) {
+                    Log.d("trashButton.Listener", "deleted $oldPosition")
+                    GridHandler.positions[oldPosition]!!.delete()
                     GridHandler.updateMap(GridHandler.HORIZONTAL, 3, GridHandler.DEL)
                     dialog.dismiss()
                 }

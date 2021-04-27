@@ -34,7 +34,7 @@ class WeatherFullScreen {
                 dialog.dismiss()
             }
             lv.editButton.setOnClickListener {
-                WidgetEditor.editWidget(w.parentLayout, w.context, w.inflater, w.location, "Weather", w.location)
+                WidgetEditor.editWidget(w.parentLayout, w.context, w.inflater, w.position)
                 dialog.dismiss()
             }
         }
